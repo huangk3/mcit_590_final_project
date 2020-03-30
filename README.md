@@ -1,1 +1,2 @@
-# mcit_590_final_project
+# MCIT 590 final project
+
