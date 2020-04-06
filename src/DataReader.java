@@ -1,35 +1,34 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
  * Class for handling input csv file
  */
-public class dataReader {
-    ArrayList<clinicalEncounter> encounters = new ArrayList<>();
+public class DataReader {
 
     /**
      * This method reads input csv file of patient encounters
      * @param filename Input csv file name
      */
-    public void inputFileReader(String filename){
+    public ArrayList<ClinicalEncounter> inputFileReader(String filename){
+        ArrayList<ClinicalEncounter> encounters = new ArrayList<>();
         File inputFile = new File(filename);
         try{
            Scanner in = new Scanner(inputFile);
-           in.nextLine();
            while (in.hasNextLine()){
                String row = in.nextLine();
                String [] values = row.split(",");
-               clinicalEncounter encounter = new clinicalEncounter(values);
+               ClinicalEncounter encounter = new ClinicalEncounter(values);
                encounters.add(encounter);
            }
+
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        return encounters;
     }
 
 }

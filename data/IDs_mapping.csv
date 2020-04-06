@@ -20,7 +20,7 @@ discharge_disposition_id,description
 9,Admitted as an inpatient to this hospital
 10,Neonate discharged to another hospital for neonatal aftercare
 11,Expired
-12,Still patient or expected to return for outpatient services
+12,Still Patient or expected to return for outpatient services
 13,Hospice / home
 14,Hospice / medical facility
 15,Discharged/transferred within this institution to Medicare approved swing bed

@@ -1,6 +1,6 @@
 import com.sun.tools.corba.se.idl.InterfaceGen;
 
-public class display {
+public class DisplayData {
     /**
      * Prints utilization profile of given member
      * @param patientA patient number
