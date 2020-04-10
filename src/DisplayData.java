@@ -19,7 +19,7 @@ public class DisplayData {
     }
 
     /**
-     * Prints similarity score between given patient and each neighbouring patient
+     * Prints similarity score between given patient and each neighboring patient
      * @param patientZero patient number for a given patient
      * @param threshold similarity score threshold
      */

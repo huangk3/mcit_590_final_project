@@ -51,7 +51,7 @@ public class ClinicalEncounter {
     String readmitted;
 
     /**
-     * Constructor for the clinicalEcounter Calss
+     * Constructor for the clinicalEcounter Class
      * @param values string array created by dataReader
      */
     public ClinicalEncounter(String[] values) {
