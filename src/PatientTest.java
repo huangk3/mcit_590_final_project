@@ -10,7 +10,7 @@ class PatientTest {
 	void testPatientConstructor() {
 		DataReader tesDataReader = new DataReader();
         ArrayList<ClinicalEncounter> testEncounters = tesDataReader.inputFileReader("data/testSamplePatTest.csv");
-        assertEquals(testEncounters.size(),16);
+        assertEquals(testEncounters.size(),61);
         
         Patient testPatientClass = new Patient(testEncounters);
 	}
@@ -71,14 +71,14 @@ class PatientTest {
         assertEquals(singleTest.race,"Caucasian");
         assertEquals(singleTest.gender,"Male");
         assertEquals(singleTest.encounterTotal,2, "Should be 2");
-        assertEquals(singleTest.avgNumInpVisits,1.5);
-        assertEquals(singleTest.avgNumProcedures,2);
+        assertEquals(singleTest.avgNumInpVisits,2);
+        assertEquals(singleTest.avgNumProcedures,4.50);
         assertEquals(singleTest.avgNumLabProcedures,51);
-        assertEquals(singleTest.avgNumMedications,9);
+        assertEquals(singleTest.avgNumMedications,8);
         assertEquals(singleTest.avgNumOutpatientVisits,0);
         assertEquals(singleTest.avgNumEmergencyVisits,0);
-        assertEquals(singleTest.totA1CElevated,1, "Should be 1 positive A1C");
-        assertEquals(singleTest.totReadmissions,1, "Should be 1 readmission");
+        assertEquals(singleTest.totA1CElevated,2, "Should be 2 positive A1C");
+        assertEquals(singleTest.totReadmissions,2, "Should be 2 readmission");
         
      }
 }

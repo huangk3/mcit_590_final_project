@@ -66,9 +66,6 @@ public class Patient {
 		this.avgNumEmergencyVisits = clinic.getNumberEmergency();
 		this.calcA1CResults(clinic);
 		this.reAdmit(clinic);
-
-
-
 	}
 
 	/**
@@ -180,7 +177,6 @@ public class Patient {
 		}
 	}
 
-
 	/**
 	 * Calculate running average given old average, new number and previous number of encounters then format to 
 	 * 2 decimal places
@@ -234,11 +230,11 @@ public class Patient {
 	public double getTotalEmergencyVisits() {
 		return avgNumEmergencyVisits;
 	}
-	
+
 	public Integer getA1CFlags() {
 		return totA1CElevated;
 	}
-	
+
 	public Integer getReadmissions() {
 		return totReadmissions;
 	}
