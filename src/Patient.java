@@ -1,4 +1,4 @@
-public class patient {
+public class Patient {
 
     Integer patientNbr;
     String race;

@@ -1,6 +1,6 @@
 # CRC
 
-## dataReader
+## DataReader
 
 #### Responsibilities
 
@@ -14,15 +14,15 @@
 #### Collaborators 
 
 * patientClass
-* dataAnalysis
-* display
+* DataAnalysis
+* DisplayData
 
 ## patientClass
 
 #### Responsibilities
 
 * Store the pateint related metadata, clinical infomation
-* Provide specific patient information
+* Provide specific Patient information
 
 #### Methods
 
@@ -30,17 +30,17 @@
 
 #### Collaborators 
 
-* dataReader
-* dataAnalysis
-* display
+* DataReader
+* DataAnalysis
+* DisplayData
 
-## dataAnalysis
+## DataAnalysis
 
 #### Responsibilities
 
 * Handle missing data
 * Calculate descritpive values 
-* Generate patient level aggregated measures of utilization (utilization profile)
+* Generate Patient level aggregated measures of utilization (utilization profile)
 * Compare utilization profile of two patients to calcualate 'similarity'
 * Provide list of 'similar' member satisfying certain criteria
 
@@ -56,12 +56,12 @@
 
 * patientClass
 
-## display
+## DisplayData
 
 #### Responsibilities
 
-* Display patient clinical profile
-* Display utilization profile of given patient
+* Display Patient clinical profile
+* Display utilization profile of given Patient
 * Disaply comparision between two 'similar' patients
 
 #### Methods
@@ -74,7 +74,7 @@
 
 * patientClass
 
-* dataAnalysis
+* DataAnalysis
 
   
 

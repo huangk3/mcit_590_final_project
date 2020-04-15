@@ -1,4 +1,4 @@
-public class clinicalEncounter {
+public class ClinicalEncounter {
     Integer encounterId;
     Integer patientNbr;
     String race;
@@ -51,10 +51,10 @@ public class clinicalEncounter {
     String readmitted;
 
     /**
-     * Constructor for the clinicalEcounter Calss
+     * Constructor for the clinicalEcounter Class
      * @param values string array created by dataReader
      */
-    public clinicalEncounter(String[] values) {
+    public ClinicalEncounter(String[] values) {
         this.encounterId = Integer.parseInt(values[0]);
         this.patientNbr = Integer.parseInt(values[1]);
         this.race = values[2];

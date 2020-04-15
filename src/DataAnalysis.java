@@ -1,13 +1,13 @@
 import java.util.ArrayList;
 
-public class dataAnalysis {
+public class DataAnalysis {
 
     /**
      * This method provides arrayList of unique patient numbers in given encounter date
      * @param encounters ArrayList of encounter data
      * @return get list of unique patient numbers
      */
-    public ArrayList<Integer> getPatientList(ArrayList<clinicalEncounter> encounters){
+    public ArrayList<Integer> getPatientList(ArrayList<ClinicalEncounter> encounters){
         ArrayList<Integer> test = new ArrayList<>();
         return test;
     }
@@ -18,8 +18,8 @@ public class dataAnalysis {
      * @param patientNumber PatientNumber to filter out the encounters
      * @return ArrayList of selected encounters
      */
-    public ArrayList<clinicalEncounter> selectEncounters(ArrayList<clinicalEncounter> encounters, Integer patientNumber){
-    ArrayList<clinicalEncounter> test2 = new ArrayList<>() ;
+    public ArrayList<ClinicalEncounter> selectEncounters(ArrayList<ClinicalEncounter> encounters, Integer patientNumber){
+    ArrayList<ClinicalEncounter> test2 = new ArrayList<>() ;
     return  test2;
     }
 
@@ -29,8 +29,8 @@ public class dataAnalysis {
      * @param patientNumber PatientNumber
      * @return patient's utilization profile
      */
-    public patient getPatientProfile(ArrayList<clinicalEncounter> encounters, Integer patientNumber){
-        patient test3 = new patient();
+    public Patient getPatientProfile(ArrayList<ClinicalEncounter> encounters, Integer patientNumber){
+        Patient test3 = new Patient();
         return test3;
     }
 
@@ -41,7 +41,7 @@ public class dataAnalysis {
      * @param method method to be used for similarity computation e.g. Euclidean, Cosine etc.
      * @return Similarity score
      */
-    public Double calculateSimilarity(patient patientA, patient patientB, String method){
+    public Double calculateSimilarity(Patient patientA, Patient patientB, String method){
         return 0.0;
     }
 
@@ -52,7 +52,7 @@ public class dataAnalysis {
      * @param similarityThreshold Minimum similarity score threshold
      * @return List of patients within a certain threshold of similarity
      */
-    public ArrayList<Integer> getNeighbours(patient patientZero, double similarityThreshold){
+    public ArrayList<Integer> getNeighbours(Patient patientZero, double similarityThreshold){
         ArrayList<Integer> test4 = new ArrayList<>();
         return  test4;
     }

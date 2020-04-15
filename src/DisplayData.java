@@ -1,6 +1,6 @@
 import com.sun.tools.corba.se.idl.InterfaceGen;
 
-public class display {
+public class DisplayData {
     /**
      * Prints utilization profile of given member
      * @param patientA patient number
@@ -19,7 +19,7 @@ public class display {
     }
 
     /**
-     * Prints similarity score between given patient and each neighbouring patient
+     * Prints similarity score between given patient and each neighboring patient
      * @param patientZero patient number for a given patient
      * @param threshold similarity score threshold
      */
