@@ -1,49 +1,79 @@
+
 public class Patient {
 
-    Integer patientNbr;
-    String race;
-    String gender;
-    String age;
-    Integer totalInpVisits;
-    Integer totalProcedures;
-    Integer totalMedications;
-    Integer totalOutpatientVisits;
-    Integer totalEmergencyVisits;
+	/**variables from PDF and table 1
+	 *
+	 */
+	Integer patientNbr;
+	String race;
+	Integer gender;
+	Integer ageCat;
+	Integer encounterTotal;
+	double avgNumInpVisits;
+	double avgNumProcedures;
+	double avgNumLabProcedures;
+	double avgNumMedications;
+	double avgNumOutpatientVisits;
+	double avgNumEmergencyVisits;
+	Integer totA1CElevated = 0;
+	Integer totReadmissions = 0;
 
 
-    public Integer getPatientNbr() {
-        return patientNbr;
-    }
+	public Integer getPatientNbr() {
+		return patientNbr;
+	}
 
-    public String getRace() {
-        return race;
-    }
+	public String getRace() {
+		return race;
+	}
 
-    public String getGender() {
-        return gender;
-    }
+	public Integer getGender() {
+		return gender;
+	}
 
-    public String getAge() {
-        return age;
-    }
+	public Integer getAge() {
+		return ageCat;
+	}
 
-    public Integer getTotalInpVisits() {
-        return totalInpVisits;
-    }
+	public double getTotalInpVisits() {
+		return avgNumInpVisits;
+	}
 
-    public Integer getTotalProcedures() {
-        return totalProcedures;
-    }
+	public double getTotalLab() {
+		return avgNumLabProcedures;
+	}
 
-    public Integer getTotalMedications() {
-        return totalMedications;
-    }
+	public double getTotalProcedures() {
+		return avgNumProcedures;
+	}
 
-    public Integer getTotalOutpatientVisits() {
-        return totalOutpatientVisits;
-    }
+	public double getTotalMedications() {
+		return avgNumMedications;
+	}
 
-    public Integer getTotalEmergencyVisits() {
-        return totalEmergencyVisits;
-    }
+	public double getTotalOutpatientVisits() {
+		return avgNumOutpatientVisits;
+	}
+
+	public double getTotalEmergencyVisits() {
+		return avgNumEmergencyVisits;
+	}
+
+	public Integer getA1CFlags() {
+		return totA1CElevated;
+	}
+
+	public Integer getReadmissions() {
+		return totReadmissions;
+	}
+
+	/**
+	 * This methods returns a double [] with all values of the patient profile for use in calculations
+	 * @return
+	 */
+	public Double[] getProfile() {
+		Double[] profile = new Double[]{(double) this.getAge(), this.getTotalLab(), this.getTotalProcedures(), this.getTotalOutpatientVisits(),
+				this.getTotalInpVisits(), this.getTotalEmergencyVisits(), (double) this.getA1CFlags(), this.getTotalMedications(), (double) this.getGender()};
+		return profile;
+	}
 }
