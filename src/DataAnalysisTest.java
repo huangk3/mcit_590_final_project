@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,18 +8,19 @@ import static org.junit.jupiter.api.Assertions.*;
 class DataAnalysisTest {
 
     DataAnalysis test = new DataAnalysis();
-    PatientDataReader testPatientLoader = new PatientDataReader();
-    HashMap<Integer,Patient> patientData = testPatientLoader.inputFileReader("data/patient_grouped.csv");
-
+    DataReader tesDataReader = new DataReader();
+    ArrayList<ClinicalEncounter> testEncounters = tesDataReader.inputFileReader("data/diabetic_data.csv");
+    PatientProcessor testProcessor = new PatientProcessor();
+    HashMap<Integer, Patient> testPatientMap = testProcessor.buildPatientProfiles(testEncounters);
     @Test
     void calculateEuclidean() {
-        assertEquals(test.calculateSimilarity(135,378,patientData,"euclidean"),13.88344337691482);
+        assertEquals(test.calculateSimilarity(3146373,8222157,testPatientMap,"euclidean"),10.344080432788601);
     }
 
     @Test
     void calculateCosine()
     {
-        Double cosineDist =test.calculateSimilarity(135, 378, patientData, "cosine");
-        assertEquals(cosineDist,0.9807302912855623);
+        Double cosineDist =test.calculateSimilarity(3146373, 8222157, testPatientMap, "cosine");
+        assertEquals(cosineDist,0.9693628892263843);
     }
 }
