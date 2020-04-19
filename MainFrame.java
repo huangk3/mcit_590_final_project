@@ -33,7 +33,7 @@ public class MainFrame extends JFrame {
 	private JScrollPane scrollPane;
 	private JTextField textIndexPatient;
 	
-	private static ArrayList<String> tableHeader = new ArrayList<String> (Arrays.asList("Encounter_ID", "Race", "Gender", "Age", "Time_in_Hospital", "Num_Procedures", 
+	private static ArrayList<String> tableHeader = new ArrayList<String> (Arrays.asList("Patient_ID", "Race", "Gender", "Age", "Time_in_Hospital", "Num_Procedures", 
 			"Num_Medications", "Num_Outpatient", "Num_Emergency"));
 
 	/**
