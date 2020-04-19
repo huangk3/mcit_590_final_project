@@ -17,6 +17,8 @@ public class DataReader {
         File inputFile = new File(filename);
         try{
            Scanner in = new Scanner(inputFile);
+           //Command to skip header
+           in.nextLine();
            while (in.hasNextLine()){
                String row = in.nextLine();
                String [] values = row.split(",");
