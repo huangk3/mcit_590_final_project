@@ -94,12 +94,10 @@ public class DataAnalysis {
     }
 
 
-    public HashMap<Integer, Double> getDistanceAllPatients(Integer indexPatient, HashMap<Integer, Patient> patientData){
+    public HashMap<Integer, Double> getDistanceAllPatients(Integer indexPatient, HashMap<Integer, Patient> patientData, String method){
         HashMap<Integer, Double> distances = new HashMap<>();
         for (Integer patientNumber : patientData.keySet()){
-            if (patientNumber != indexPatient){
-                distances.put(patientNumber, calculateSimilarity(indexPatient, patientNumber, patientData, "euclidean") );
-            }
+        distances.put(patientNumber, calculateSimilarity(indexPatient, patientNumber, patientData, method) );
                    }
         return distances;
     }
@@ -107,25 +105,128 @@ public class DataAnalysis {
     /**
      * Return the list of patient numbers which are within a certain threshold of similarity score compared
      * to a given member
-     * @param indexPatient Patient profile to compare to
      * @param similarityThreshold Minimum similarity score threshold
      * @return List of patients within a certain threshold of similarity
      */
-    public ArrayList<Integer> getNeighbours(Patient indexPatient, HashMap<Integer, Double> distances,
+    public ArrayList<Integer> getNeighbours(HashMap<Integer, Double> distances,
                                             double similarityThreshold){
-        ArrayList<Integer> neigbours = new ArrayList<>();
+        ArrayList<Integer> neighbors = new ArrayList<>();
         mapValueComparator compareVals = new mapValueComparator(distances);
         TreeMap<Integer, Double> sorted = new TreeMap<>(compareVals);
-
+        sorted.putAll(distances);
 
         for (Integer patientNumber : sorted.keySet()){
             if (sorted.get(patientNumber)<=similarityThreshold){
-                neigbours.add(patientNumber);
+                neighbors.add(patientNumber);
             }else{
                 break;
             }
         }
-        return  neigbours;
+        return  neighbors;
+    }
+
+    /**
+     * This method get the patient profile data for front end display
+     * @param patients Input is HashMap of patient identifier and patient instances
+     * @return Arraylist of string arrays with patient profile information
+     */
+    public  ArrayList<String[]> getPatientForDisplay(HashMap<Integer,Patient> patients){
+        ArrayList<String[]> patientForDisplay = new ArrayList<>();
+      for (Integer patientNum : patients.keySet()){
+          Patient curP = patients.get(patientNum);
+          String[] row = {curP.getPatientNbr().toString(), curP.getRace(), curP.getGenderString(),
+                  curP.getAgeCatString(), Double.toString(curP.getTotalProcedures()),
+                  Double.toString(curP.getTotalMedications()), Double.toString(curP.getTotalLab()),
+                  Double.toString(curP.getTotalOutpatientVisits()), Double.toString(curP.getTotalInpVisits()),
+                  Double.toString(curP.getTotalEmergencyVisits())};
+          patientForDisplay.add(row);
+      }
+      return patientForDisplay;
+    }
+
+    /**
+     * Overloaded method to return the list of patient profiles and distances
+     * @param patients HashMap of patient identifier and patient profile
+     * @param distances HashMap of patient identifier and similarity metric value
+     * @param neighbors List of patients/neighbors satisfying criteria
+     * @return Arraylist of String arrays with patient information and distance measure
+     */
+    public  ArrayList<String[]> getPatientForDisplay(HashMap<Integer,Patient> patients,
+                                                       HashMap<Integer, Double> distances,
+                                                       ArrayList<Integer> neighbors){
+        ArrayList<String[]> patientForDisplay = new ArrayList<>();
+        for (Integer patientNum : neighbors){
+            Patient curP = patients.get(patientNum);
+            String[] row = {curP.getPatientNbr().toString(), curP.getRace(), curP.getGenderString(),
+                    curP.getAgeCatString(), Double.toString(curP.getTotalProcedures()),
+                    Double.toString(curP.getTotalMedications()), Double.toString(curP.getTotalLab()),
+                    Double.toString(curP.getTotalOutpatientVisits()), Double.toString(curP.getTotalInpVisits()),
+                    Double.toString(curP.getTotalEmergencyVisits()), Double.toString(distances.get(patientNum))};
+            patientForDisplay.add(row);
+        }
+        return patientForDisplay;
+    }
+
+    /**
+     * Get the distribution of race among patient and its neighbours
+     * @param neighbors list of patient numbers
+     * @param patients Hashmap of patient identifier and patient profile
+     * @return HashMap of race and proportion of patient with that race
+     */
+    public HashMap<String, Double>  getRaceDistribution(ArrayList<Integer> neighbors,
+                                                        HashMap<Integer, Patient> patients,
+                                                        String grouper){
+        HashMap<String, Double> distByGrp = new HashMap<>();
+        for (Integer patientNum : neighbors){
+            String grp = "";
+            if (grouper.equals("race")){
+                 grp = patients.get(patientNum).getRace();
+            }else if (grouper.equals("gender")){
+                 grp = patients.get(patientNum).getGenderString();
+            }
+
+            if (distByGrp.containsKey(grp)){
+                distByGrp.put(grp, distByGrp.get(grp)+1.0);
+            }else{
+                distByGrp.put(grp,1.0);
+            }
+        }
+
+        for (String race: distByGrp.keySet()){
+            distByGrp.put(race,(distByGrp.get(race)/neighbors.size())*100);
+        }
+        return distByGrp;
+    }
+
+
+    /**
+     * This method provides data needed for the scatter plot on front-end
+     * @param xVar X axis variable chosen by user
+     * @param yVar Y axis variable chosen by user
+     * @param neighborProfile Arraylist of Strings arrays which contain neighbor profiles and distance measure
+     * @return Array list of String arrays with value for X axis variable, value for Y axis variable , distance
+     */
+    public ArrayList<String[]> getScatterPlotData(String xVar, String yVar,
+                                                  ArrayList<String[]> neighborProfile){
+        ArrayList<String[]> scatterOutData = new ArrayList<>();
+        HashMap<String, Integer> varIndexMap = new HashMap<>();
+        varIndexMap.put("Race",1);
+        varIndexMap.put("Gender",2);
+        varIndexMap.put("Age Category",3);
+        varIndexMap.put("Total Procedures",4);
+        varIndexMap.put("Total Medications",5);
+        varIndexMap.put("Total Lab",6);
+        varIndexMap.put("Total Outpatient visits",7);
+        varIndexMap.put("Total Inpatient visits",8);
+        varIndexMap.put("Total Emergency room visits",9);
+
+        for(String[] profile:neighborProfile){
+            String[] scatterData = {profile[varIndexMap.get(xVar)], profile[varIndexMap.get(yVar)], profile[10]};
+            scatterOutData.add(scatterData);
+        }
+
+    return scatterOutData;
+
     }
 
 }

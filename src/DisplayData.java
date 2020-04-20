@@ -1,4 +1,4 @@
-import com.sun.tools.corba.se.idl.InterfaceGen;
+//import com.sun.tools.corba.se.idl.InterfaceGen;
 
 public class DisplayData {
     /**

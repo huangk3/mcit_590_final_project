@@ -24,9 +24,11 @@ public class PatientProcessor {
 				//Create new Patient and add to HashMap
 				Patient workingPatient = new Patient();
 				workingPatient.ageCat = updateAge(encounter.age);
+				workingPatient.ageCatString = encounter.age;
 				workingPatient.patientNbr = encounter.getPatientNbr(); 
 				workingPatient.race = encounter.getRace();
 				workingPatient.gender = updateGender(encounter.gender);
+				workingPatient.genderString = encounter.gender;
 				workingPatient.encounterTotal = 1;
 				workingPatient.avgNumInpVisits = encounter.getNumberInpatient(); 
 				workingPatient.avgNumProcedures = encounter.getNumProcedures(); 

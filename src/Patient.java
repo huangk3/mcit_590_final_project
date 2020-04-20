@@ -8,6 +8,8 @@ public class Patient {
 	String race;
 	Integer gender;
 	Integer ageCat;
+	String genderString;
+	String ageCatString;
 	Integer encounterTotal;
 	double avgNumInpVisits;
 	double avgNumProcedures;
@@ -67,6 +69,14 @@ public class Patient {
 		return totReadmissions;
 	}
 
+	public String getGenderString() {
+		return genderString;
+	}
+
+	public String getAgeCatString() {
+		return ageCatString;
+	}
+
 	/**
 	 * This methods returns a double [] with all values of the patient profile for use in calculations
 	 * @return
@@ -77,3 +87,4 @@ public class Patient {
 		return profile;
 	}
 }
+
