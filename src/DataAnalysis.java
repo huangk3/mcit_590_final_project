@@ -42,11 +42,15 @@ public class DataAnalysis {
      * @param method method to be used for similarity computation e.g. Euclidean, Cosine etc.
      * @return Similarity score
      */
-    public Double calculateSimilarity(Integer indexPatient, Integer otherPatient, HashMap<Integer, Patient> patients, String method){
+    public Double calculateSimilarity(Integer indexPatient, Integer otherPatient,
+                                      HashMap<Integer, Patient> patients,
+                                      Double[] range,
+                                      String method){
         Double [] indexProfile = patients.get(indexPatient).getProfile();
         Double [] otherProfile = patients.get(otherPatient).getProfile();
+
         if (method.equals("euclidean")){
-          return euclideanDistance(indexProfile, otherProfile);
+          return euclideanDistance(indexProfile, otherProfile,range);
         }
 
         if (method.equals("cosine")){
@@ -57,8 +61,11 @@ public class DataAnalysis {
 
 
 
-    public Double euclideanDistance(Double[] indexProfile, Double[] otherProfile){
-        return norm(elementWiseSubstraction(indexProfile,otherProfile));
+    public Double euclideanDistance(Double[] indexProfile, Double[] otherProfile, Double[] range){
+        Double [] normalizedIndex = normalize(indexProfile);
+        Double [] normalizedOther = normalize(otherProfile);
+        Double [] diff = elementWiseSubstraction(normalizedIndex,normalizedOther);
+        return stdNorm(diff,range);
     }
 
     public Double cosineSimilarity(Double[] indexProfile, Double[] otherProfile){
@@ -67,6 +74,90 @@ public class DataAnalysis {
       double denom = norm(indexProfile)*norm(otherProfile);
 
       return numer/denom;
+    }
+
+    /**
+     * Get the average of values in the profile
+     * @param profile patient utilization profile
+     * @return average value of values in utilization profile
+     */
+    public double mean(Double[] profile){
+        double tot=0.0;
+        for (double val : profile){
+            tot+=val;
+        }
+        return tot/profile.length;
+    }
+
+   public Double[] minProfileVals(HashMap<Integer, Patient> patients){
+        Double [] minVals = new Double[9];
+        for (Integer patNum : patients.keySet()){
+            Double[] profile = patients.get(patNum).getProfile();
+            for (int i =0; i<profile.length; i++){
+                if(minVals[i]==null){
+                    minVals[i]=profile[i];
+                }
+                else if (profile[i]<=minVals[i]){
+                    minVals[i]=profile[i];
+                }
+            }
+        }
+        return minVals;
+   }
+
+    public Double[] maxProfileVals(HashMap<Integer, Patient> patients){
+        Double [] maxVals = new Double[9];
+        for (Integer patNum : patients.keySet()){
+            Double[] profile = patients.get(patNum).getProfile();
+            for (int i =0; i<profile.length; i++){
+                if (maxVals[i]==null){
+                    maxVals[i]=profile[i];
+                }
+                else if (profile[i]>=maxVals[i]){
+                    maxVals[i]=profile[i];
+                }
+            }
+        }
+        return maxVals;
+    }
+
+    public double stdDev(Double[] profile){
+        double meanVal = mean(profile);
+        double variance = 0.0;
+        for (double val : profile){
+            variance+=Math.pow(val-meanVal,2);
+        }
+        return Math.sqrt(variance/profile.length);
+    }
+
+    public Double[] normalize(Double[] profile){
+        double meanVal = mean(profile);
+        double sd = stdDev(profile);
+        Double[] noralizedArray = new Double[profile.length];
+
+        for(int i=0; i<profile.length; i++){
+            noralizedArray[i]= (profile[i]-meanVal)/sd;
+        }
+        return noralizedArray;
+    }
+
+    public  Double[] square(Double[] vector){
+        Double[] squares = new Double[vector.length];
+        for (int j=0; j<vector.length; j++){
+            squares[j] = vector[j]*vector[j];
+        }
+        return squares;
+    }
+
+    public double stdNorm(Double[] vector, Double[] range){
+        double ss = 0.0;
+        Double[] rangeSqr = square(range);
+        Double[] squares = square(vector);
+
+        for(int k=0; k<vector.length; k++){
+            ss+=squares[k]/rangeSqr[k];
+        }
+        return  Math.sqrt(ss)/Math.sqrt(vector.length);
     }
 
     public double norm(Double[] profile){
@@ -85,6 +176,7 @@ public class DataAnalysis {
         return ssElmSub;
     }
 
+
     public double sumOfElementWiseMul(Double[] indexProfile, Double[] otherProfile){
         double ssElmMul = 0.0;
         for (int k=0; k<indexProfile.length; k++){
@@ -96,8 +188,11 @@ public class DataAnalysis {
 
     public HashMap<Integer, Double> getDistanceAllPatients(Integer indexPatient, HashMap<Integer, Patient> patientData, String method){
         HashMap<Integer, Double> distances = new HashMap<>();
+        Double[] minVals = minProfileVals(patientData);
+        Double[] maxVals = maxProfileVals(patientData);
+        Double[] range = elementWiseSubstraction(maxVals, minVals);
         for (Integer patientNumber : patientData.keySet()){
-        distances.put(patientNumber, calculateSimilarity(indexPatient, patientNumber, patientData, method) );
+        distances.put(patientNumber, calculateSimilarity(indexPatient, patientNumber, patientData, range, method) );
                    }
         return distances;
     }

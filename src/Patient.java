@@ -82,8 +82,9 @@ public class Patient {
 	 * @return
 	 */
 	public Double[] getProfile() {
-		Double[] profile = new Double[]{(double) this.getAge(), this.getTotalLab(), this.getTotalProcedures(), this.getTotalOutpatientVisits(),
-				this.getTotalInpVisits(), this.getTotalEmergencyVisits(), (double) this.getA1CFlags(), this.getTotalMedications(), (double) this.getGender()};
+		Double[] profile = new Double[]{(double) this.getAge(), this.getTotalLab(), this.getTotalProcedures(),
+				this.getTotalOutpatientVisits(), this.getTotalInpVisits(), this.getTotalEmergencyVisits(),
+				(double) this.getA1CFlags(), this.getTotalMedications(), (double) this.getGender()};
 		return profile;
 	}
 }

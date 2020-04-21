@@ -14,17 +14,42 @@ class DataAnalysisTest {
     PatientProcessor testProcessor = new PatientProcessor();
     HashMap<Integer, Patient> testPatientMap = testProcessor.buildPatientProfiles(testEncounters);
     HashMap<Integer, Double> distances = test.getDistanceAllPatients(3146373,testPatientMap,"euclidean");
+    Double[] maxVals = test.maxProfileVals(testPatientMap);
+    Double[] minVals = test.minProfileVals(testPatientMap);
+    Double[] range = test.elementWiseSubstraction(maxVals, minVals);
+
+
+    @Test
+    void checkMean(){
+    assertEquals(test.mean(testPatientMap.get(3146373).getProfile()),5.666666666666667);
+    }
+
+    @Test
+    void checkStdDev(){
+        assertEquals(test.stdDev(testPatientMap.get(3146373).getProfile()),11.125546178852424);
+    }
+
+    @Test
+    void checkNormalVector(){
+        Double[] testProfile = testPatientMap.get(3146373).getProfile();
+        Double[] nomalizedProfile = test.normalize(testProfile);
+        assertEquals(nomalizedProfile[0],-0.05992215, 0.001);
+        assertEquals(nomalizedProfile[7],0.29961076, 0.001);
+
+    }
 
     @Test
     void calculateEuclidean() {
-        assertEquals(test.calculateSimilarity(3146373,8222157,testPatientMap,"euclidean"),10.344080432788601);
+
+//        assertEquals();
+        assertEquals(test.calculateSimilarity(3146373,8222157,testPatientMap,range,"euclidean"),0.0692254697526158,0.0001);
     }
 
     @Test
     void calculateCosine()
     {
-        Double cosineDist =test.calculateSimilarity(3146373, 8222157, testPatientMap, "cosine");
-        assertEquals(cosineDist,0.9693628892263843);
+        Double cosineDist =test.calculateSimilarity(3146373, 8222157, testPatientMap, range, "cosine");
+        assertEquals(cosineDist, 0.9693628892263843);
     }
 
     @Test
