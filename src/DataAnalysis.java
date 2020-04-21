@@ -206,16 +206,17 @@ public class DataAnalysis {
     public ArrayList<Integer> getNeighbours(HashMap<Integer, Double> distances,
                                             double similarityThreshold){
         ArrayList<Integer> neighbors = new ArrayList<>();
-        mapValueComparator compareVals = new mapValueComparator(distances);
-        TreeMap<Integer, Double> sorted = new TreeMap<>(compareVals);
-        sorted.putAll(distances);
+//        mapValueComparator compareVals = new mapValueComparator(distances);
+//        TreeMap<Integer, Double> sorted = new TreeMap<>(compareVals);
+//        sorted.putAll(distances);
 
-        for (Integer patientNumber : sorted.keySet()){
-            if (sorted.get(patientNumber)<=similarityThreshold){
+        for (Integer patientNumber : distances.keySet()){
+            if (distances.get(patientNumber)<=similarityThreshold){
                 neighbors.add(patientNumber);
-            }else{
-                break;
             }
+//            else{
+//                break;
+//            }
         }
         return  neighbors;
     }
