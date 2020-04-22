@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.TreeMap;
 
@@ -14,9 +15,8 @@ class DataAnalysisTest {
     PatientProcessor testProcessor = new PatientProcessor();
     HashMap<Integer, Patient> testPatientMap = testProcessor.buildPatientProfiles(testEncounters);
     HashMap<Integer, Double> distances = test.getDistanceAllPatients(3146373,testPatientMap,"euclidean");
-    Double[] maxVals = test.maxProfileVals(testPatientMap);
-    Double[] minVals = test.minProfileVals(testPatientMap);
-    Double[] range = test.elementWiseSubstraction(maxVals, minVals);
+    Double[][] minMaxVals = test.minMaxProfileVals(testPatientMap);
+    Double[] range = test.elementWiseSubstraction(minMaxVals[0], minMaxVals[1]);
 
 
     @Test
@@ -41,19 +41,20 @@ class DataAnalysisTest {
     @Test
     void calculateEuclidean() {
 
-//        assertEquals();
-        assertEquals(test.calculateSimilarity(3146373,8222157,testPatientMap,range,"euclidean"),0.0692254697526158,0.0001);
+        assertEquals(test.calculateSimilarity(3146373,8222157,
+                testPatientMap,range,"euclidean"),0.3707,0.001);
     }
 
     @Test
     void calculateCosine()
     {
-        Double cosineDist =test.calculateSimilarity(3146373, 8222157, testPatientMap, range, "cosine");
-        assertEquals(cosineDist, 0.9693628892263843);
+        Double cosineDist =test.calculateSimilarity(3146373, 8222157,
+                testPatientMap, range, "cosine");
+        assertEquals(cosineDist, 0.9693628892263843, 0.001);
     }
 
     @Test
-    void distanceCal()
+    void distanceCalVecSize()
     {
         assertEquals(distances.size(),testPatientMap.size());
     }
@@ -69,6 +70,18 @@ class DataAnalysisTest {
         assertEquals(sorted.get(3146373),0.0);
     }
 
+    @Test
+    void minMaxValCheck(){
+        assertEquals(Arrays.toString(minMaxVals[0]),"[1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0]");
+        assertEquals(Arrays.toString(minMaxVals[1]),"[10.0, 121.0, 6.0, 36.0, 14.13, 44.72, 9.0, 81.0, 1.0]");
+    }
 
+    @Test
+    void  displayData(){
+        ArrayList<Integer> neighbours = test.getNeighbours(distances,.3);
+        ArrayList<String []> forDisplay2 = test.getPatientForDisplay(testPatientMap,distances,neighbours);
+        String testDisplayData = "[3146373, Caucasian, Male, [40-50), 1.0, 9.0, 36.0, 0.0, 0.0, 0.0, 0.0]";
+        assertEquals(Arrays.toString(forDisplay2.get(0)),testDisplayData);
+    }
 
 }

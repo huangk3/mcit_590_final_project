@@ -13,10 +13,10 @@ public class TestMain {
         ArrayList<String[]> forDisplay = test.getPatientForDisplay(testPatientMap);
 //        System.out.println(Arrays.toString(forDisplay.get(0)));
 
-        System.out.println("Min :"+ Arrays.toString(test.minProfileVals(testPatientMap)));
-        System.out.println("Max :"+Arrays.toString(test.maxProfileVals(testPatientMap)));
+        System.out.println("Min :"+ Arrays.toString(test.minMaxProfileVals(testPatientMap)[0]));
+        System.out.println("Max :"+Arrays.toString(test.minMaxProfileVals(testPatientMap)[1]));
 //
-        HashMap<Integer, Double> distances = test.getDistanceAllPatients(3146373,testPatientMap,"euclidean");
+        HashMap<Integer, Double> distances = test.getDistanceAllPatients(3146373,testPatientMap,"cosine");
 //        Double[] patientA = testPatientMap.get(3146373).getProfile();
 //        Double[] patientB = testPatientMap.get(8222157).getProfile();
 //        System.out.println(Arrays.toString(patientA));
@@ -68,14 +68,14 @@ public class TestMain {
 
 //        System.out.println("Treemap entry " + sorted.get(3146373));
 
-//        ArrayList<Integer> neighbours = test.getNeighbours(distances,10);
+        ArrayList<Integer> neighbours = test.getNeighbours(distances,.3);
 
 //        System.out.println("Total neighbors = "+neighbours.size() );
 
-//        ArrayList<String []> forDisplay2 = test.getPatientForDisplay(testPatientMap,distances,neighbours);
-//        System.out.println(Arrays.toString(forDisplay2.get(0)));
-//        System.out.println(Arrays.toString(forDisplay2.get(1)));
-//        System.out.println(Arrays.toString(forDisplay2.get(2)));
+        ArrayList<String []> forDisplay2 = test.getPatientForDisplay(testPatientMap,distances,neighbours);
+        System.out.println(Arrays.toString(forDisplay2.get(0)));
+        System.out.println(Arrays.toString(forDisplay2.get(1)));
+        System.out.println(Arrays.toString(forDisplay2.get(2)));
 
 //    HashMap<String,Double> testRaceDist= test.getRaceDistribution(neighbours, testPatientMap, "race");
 //        for(String race:testRaceDist.keySet()){

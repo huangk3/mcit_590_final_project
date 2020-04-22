@@ -4,41 +4,12 @@ import java.util.TreeMap;
 
 public class DataAnalysis {
 
-    /**
-     * This method provides arrayList of unique patient numbers in given encounter date
-     * @param encounters ArrayList of encounter data
-     * @return get list of unique patient numbers
-     */
-//    public ArrayList<Integer> getPatientList(ArrayList<ClinicalEncounter> encounters){
-//        ArrayList<Integer> test = new ArrayList<>();
-//        return test;
-//    }
-
-    /**
-     *This method returns encounters for given patient
-     * @param encounters Array list of all encounter
-     * @param patientNumber PatientNumber to filter out the encounters
-     * @return ArrayList of selected encounters
-     */
-    public ArrayList<ClinicalEncounter> selectEncounters(ArrayList<ClinicalEncounter> encounters, Integer patientNumber){
-    ArrayList<ClinicalEncounter> test2 = new ArrayList<>() ;
-    return  test2;
-    }
-
-    /**
-     * This method output given patient's utilization profile
-     * @param  patients Arraylist of patients for given patient
-     * @param patientNumber PatientNumber
-     * @return patient's utilization profile
-     */
-    public Double[] getPatientProfile(ArrayList<Patient> patients, Integer patientNumber){
-        return patients.get(patientNumber).getProfile();
-    }
 
     /**
      * This method will calculate the similarity between two patients' utilization profiles
      * @param indexPatient Utilization profile of second patient in the comparison
      * @param otherPatient Utilization profile of first patient in the comparison
+     * @param range Array of difference between minimum and maximum values for each component in patient profile
      * @param method method to be used for similarity computation e.g. Euclidean, Cosine etc.
      * @return Similarity score
      */
@@ -59,22 +30,59 @@ public class DataAnalysis {
         return null;
     }
 
-
+    /**
+     * This method provides euclidean distance between two utilization profile
+     * @param indexProfile Utilization profile of index patient
+     * @param otherProfile Utilization profile of other patient
+     * @param range Array of difference between minimum and maximum values for each component in patient profile
+     * @return euclidean distance
+     */
 
     public Double euclideanDistance(Double[] indexProfile, Double[] otherProfile, Double[] range){
-        Double [] normalizedIndex = normalize(indexProfile);
-        Double [] normalizedOther = normalize(otherProfile);
-        Double [] diff = elementWiseSubstraction(normalizedIndex,normalizedOther);
+        Double [] diff = elementWiseSubstraction(indexProfile,otherProfile);
         return stdNorm(diff,range);
     }
 
+    /**
+     * This method provides cosine similarity between two patients
+     * @param indexProfile Utilization profile of index patient
+     * @param otherProfile Utilization profile of other patient
+     * @return cosine similarity
+     */
     public Double cosineSimilarity(Double[] indexProfile, Double[] otherProfile){
-
       double numer =  sumOfElementWiseMul(indexProfile, otherProfile);
       double denom = norm(indexProfile)*norm(otherProfile);
-
       return numer/denom;
     }
+
+
+
+    /**
+     * This method provides array of minimum and maximum values of each element in patient profile in entire data
+     * @param patients HashMap with patient number as key and utilization profile as value
+     * @return 2D Array of minimum and maximum values
+     */
+   public Double[][] minMaxProfileVals(HashMap<Integer, Patient> patients){
+        Double [][] minMaxVals = new Double[2][9];
+//        Double [] maxVals = new Double[9];
+        for (Integer patNum : patients.keySet()){
+            Double[] profile = patients.get(patNum).getProfile();
+            for (int i =0; i<profile.length; i++){
+                if(minMaxVals[0][i]==null){
+                    minMaxVals[0][i]=profile[i];
+                }if(minMaxVals[1][i]==null){
+                    minMaxVals[1][i]=profile[i];
+                }
+                if (profile[i]<=minMaxVals[0][i]){
+                    minMaxVals[0][i]=profile[i];
+                }
+                if (profile[i]>=minMaxVals[1][i]){
+                    minMaxVals[1][i]=profile[i];
+                }
+            }
+        }
+        return minMaxVals;
+   }
 
     /**
      * Get the average of values in the profile
@@ -89,38 +97,11 @@ public class DataAnalysis {
         return tot/profile.length;
     }
 
-   public Double[] minProfileVals(HashMap<Integer, Patient> patients){
-        Double [] minVals = new Double[9];
-        for (Integer patNum : patients.keySet()){
-            Double[] profile = patients.get(patNum).getProfile();
-            for (int i =0; i<profile.length; i++){
-                if(minVals[i]==null){
-                    minVals[i]=profile[i];
-                }
-                else if (profile[i]<=minVals[i]){
-                    minVals[i]=profile[i];
-                }
-            }
-        }
-        return minVals;
-   }
-
-    public Double[] maxProfileVals(HashMap<Integer, Patient> patients){
-        Double [] maxVals = new Double[9];
-        for (Integer patNum : patients.keySet()){
-            Double[] profile = patients.get(patNum).getProfile();
-            for (int i =0; i<profile.length; i++){
-                if (maxVals[i]==null){
-                    maxVals[i]=profile[i];
-                }
-                else if (profile[i]>=maxVals[i]){
-                    maxVals[i]=profile[i];
-                }
-            }
-        }
-        return maxVals;
-    }
-
+    /**
+     * Provides standard deviation for given array of doubles
+     * @param profile patient utilization profile
+     * @return standard deviation
+     */
     public double stdDev(Double[] profile){
         double meanVal = mean(profile);
         double variance = 0.0;
@@ -129,6 +110,12 @@ public class DataAnalysis {
         }
         return Math.sqrt(variance/profile.length);
     }
+
+    /**
+     * Provide normalized values for given array of doubles/floats
+     * @param profile patient utilization profile
+     * @return array of normalized values
+     */
 
     public Double[] normalize(Double[] profile){
         double meanVal = mean(profile);
@@ -141,6 +128,11 @@ public class DataAnalysis {
         return noralizedArray;
     }
 
+    /**
+     * This helper method provides squared values of given array
+     * @param vector array of doubles
+     * @return array of squared values
+     */
     public  Double[] square(Double[] vector){
         Double[] squares = new Double[vector.length];
         for (int j=0; j<vector.length; j++){
@@ -148,6 +140,13 @@ public class DataAnalysis {
         }
         return squares;
     }
+
+    /**
+     * This method provides a standardized norm for given array of differences
+     * @param vector array of differences between two patient profiles
+     * @param range array of differences between maximum and minimum values for each element in patient profile
+     * @return standardized norm
+     */
 
     public double stdNorm(Double[] vector, Double[] range){
         double ss = 0.0;
@@ -160,14 +159,26 @@ public class DataAnalysis {
         return  Math.sqrt(ss)/Math.sqrt(vector.length);
     }
 
-    public double norm(Double[] profile){
+    /**
+     * This method provide norm of given array
+     * @param  vector input array of doubles
+     * @return norm of given vector
+     */
+
+    public double norm(Double[] vector){
         double ss = 0.0;
-        for(int j=0; j<profile.length; j++){
-            ss+=profile[j]*profile[j];
+        for(int j=0; j<vector.length; j++){
+            ss+=vector[j]*vector[j];
         }
         return  Math.sqrt(ss);
     }
 
+    /**
+     * This helper method provides element wise differences between two arrays
+     * @param indexProfile first input array
+     * @param otherProfile second input array
+     * @return array of difference between each element of input arrays
+     */
     public Double[] elementWiseSubstraction(Double[] indexProfile, Double[] otherProfile){
         Double[] ssElmSub = new Double[indexProfile.length];
         for (int k=0; k<indexProfile.length; k++){
@@ -176,7 +187,12 @@ public class DataAnalysis {
         return ssElmSub;
     }
 
-
+    /**
+     * This helper method provides sum of element wise multiplication of each element in input arrays
+     * @param indexProfile first input array
+     * @param otherProfile second input array
+     * @return sum of element wise multiplication of each element of input arrays
+     */
     public double sumOfElementWiseMul(Double[] indexProfile, Double[] otherProfile){
         double ssElmMul = 0.0;
         for (int k=0; k<indexProfile.length; k++){
@@ -185,12 +201,20 @@ public class DataAnalysis {
         return ssElmMul;
     }
 
+    /**
+     * This wrapper method calculates distance between index patient and all other patients in the data
+     * @param indexPatient patient number of index patient
+     * @param patientData HashMap of patient numbers and their utilization profiles
+     * @param method distance calculation methods - {"euclidean", "cosine"}
+     * @return HashMap of patient number and their distance from index patient
+     */
 
-    public HashMap<Integer, Double> getDistanceAllPatients(Integer indexPatient, HashMap<Integer, Patient> patientData, String method){
+    public HashMap<Integer, Double> getDistanceAllPatients(Integer indexPatient,
+                                                           HashMap<Integer, Patient> patientData,
+                                                           String method){
         HashMap<Integer, Double> distances = new HashMap<>();
-        Double[] minVals = minProfileVals(patientData);
-        Double[] maxVals = maxProfileVals(patientData);
-        Double[] range = elementWiseSubstraction(maxVals, minVals);
+        Double[][] minMaxVals = minMaxProfileVals(patientData);
+        Double[] range = elementWiseSubstraction(minMaxVals[0], minMaxVals[1]);
         for (Integer patientNumber : patientData.keySet()){
         distances.put(patientNumber, calculateSimilarity(indexPatient, patientNumber, patientData, range, method) );
                    }
@@ -206,17 +230,14 @@ public class DataAnalysis {
     public ArrayList<Integer> getNeighbours(HashMap<Integer, Double> distances,
                                             double similarityThreshold){
         ArrayList<Integer> neighbors = new ArrayList<>();
-//        mapValueComparator compareVals = new mapValueComparator(distances);
-//        TreeMap<Integer, Double> sorted = new TreeMap<>(compareVals);
-//        sorted.putAll(distances);
+        mapValueComparator compareVals = new mapValueComparator(distances);
+        TreeMap<Integer, Double> sorted = new TreeMap<>(compareVals);
+        sorted.putAll(distances);
 
-        for (Integer patientNumber : distances.keySet()){
+        for (Integer patientNumber : sorted.keySet()){
             if (distances.get(patientNumber)<=similarityThreshold){
                 neighbors.add(patientNumber);
             }
-//            else{
-//                break;
-//            }
         }
         return  neighbors;
     }
