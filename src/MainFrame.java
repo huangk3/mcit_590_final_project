@@ -39,6 +39,7 @@ public class MainFrame extends JFrame {
 	private JRadioButton rdbtnEuclidean;
 	private JRadioButton rdbtnCosine;
 	private ButtonGroup distance;
+	private String distanceType;
 
 	/**
 	 * Launch the application.
@@ -165,8 +166,8 @@ public class MainFrame extends JFrame {
 				int indexPatientId = Integer.parseInt(textIndexPatient.getText());	
 				
 				//get the distance threshold
-				double distanceThreshold = Double.parseDouble(textdistancethd.getText());
-					String distanceType = null;
+				double distanceThreshold;
+				String distanceType = null;
 					
 				//check radio button return value to see how user wants to calculate the distance between patients 
 				if (rdbtnEuclidean.isSelected()) {
@@ -176,6 +177,7 @@ public class MainFrame extends JFrame {
 				}
 				if (patientProfiles.containsKey(indexPatientId)) {
 					//validate the distance threshold input by the user
+					distanceThreshold = Double.parseDouble(textdistancethd.getText());
 					if (distanceThreshold >= 0 && distanceThreshold <= 1) {
 						new ClusteringFrame (
 								patientProfiles, indexPatientId, distanceThreshold, distanceType);
@@ -212,6 +214,20 @@ public class MainFrame extends JFrame {
 		distance.add(rdbtnEuclidean);
 		distance.add(rdbtnCosine);
 		
+		rdbtnEuclidean.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	textdistancethd.setText("0.2");
+	        }
+	    });
+		
+		rdbtnCosine.addActionListener(new ActionListener() {
+	        @Override
+	        public void actionPerformed(ActionEvent e) {
+	        	textdistancethd.setText("0.4");
+	        }
+	    });
+		
 		//create label and input box for user to input the distance threshold 
 		JLabel lblthd1 = new JLabel("Patient Distance ");
 		lblthd1.setBounds(943, 454, 119, 16);
@@ -222,7 +238,7 @@ public class MainFrame extends JFrame {
 		lblthd2.setBounds(943, 473, 119, 16);
 		contentPane.add(lblthd2);
 		
-		textdistancethd = new JTextField();
+		textdistancethd = new JTextField("0.2");
 		textdistancethd.setBounds(1060, 467, 65, 29);
 		contentPane.add(textdistancethd);
 		textdistancethd.setColumns(10);

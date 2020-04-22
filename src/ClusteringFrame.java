@@ -154,7 +154,14 @@ public class ClusteringFrame extends JFrame {
         panelClustering.setLayout(new BorderLayout(0, 0));
         
         //Generate the bubble plot xVar vs yVar  among the clustered patients
-        XYZDataset scatterDataset = Plots.createBubbleChartDataset(Scatter);
+        double bubbleSizeAdjustment; //adjust the bubble size according to the distance type used selected;
+        if (distanceType.equals("euclidean")) {
+        	bubbleSizeAdjustment =  0.025;
+        } else {
+        	bubbleSizeAdjustment =  0.25;
+        }
+        
+        XYZDataset scatterDataset = Plots.createBubbleChartDataset(Scatter, bubbleSizeAdjustment);
         JFreeChart catterChart = Plots.createBubbleChart(xVar, yVar, scatterDataset);
         ChartPanel cp = new ChartPanel(catterChart);
         panelClustering.add(cp);
