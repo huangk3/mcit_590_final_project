@@ -25,15 +25,15 @@ The user runs the MainFrame.java file and the window below is displayed.
 
 The "Import Data button" allows the user to select the "diabetic_data.csv" provided patient data.  The MainFrame then executes the DataReader class and the ClinicalEncounters class for data processing and importation.
 
-![ScreenTwo](/Users/hemming/Desktop/CIT 591/Group Project/screenShots/ScreenTwo.png)
+![ScreenTwo](ScreenTwo.png)
 
 Once the data is imported the user can view and select an index patient for comparison against all other patients.
 
-![ScreenThree](/Users/hemming/Desktop/CIT 591/Group Project/screenShots/ScreenThree.png)
+![ScreenThree](ScreenThree.png)
 
 Once the user has selected the index patient, the user can either copy and paste or type in the patient ID into the Index Patient box. Additionally the user can choose Euclidean or Cosine distance calculations. Finally the user must enter a threshold value of 0 - 1 and then click submit. The MainFrame then executes PatientProcessor and Patient classes to develop profile HashMap. Finally the DataAnaylsis, ClusteringFrame, Plots, DataDisplay, mapValueCompatator, and Plots are called to calculate similarity values and display those values into three JCharts seen below.
 
-![ScreenFour](/Users/hemming/Desktop/CIT 591/Group Project/screenShots/ScreenFour.png)
+![ScreenFour](/ScreenFour.png)
 
 
 
@@ -61,7 +61,7 @@ https://www.youtube.com/watch?v=K7R68JFd024
 
 (5) Follow instructions for installation:
 
-![WindowBuilder](/Users/hemming/Desktop/CIT 591/Group Project/screenShots/WindowBuilder.png)
+![WindowBuilder](WindowBuilder.png)
 
 
 
@@ -79,7 +79,7 @@ J Common and J Chart Installation
 
 
 
-![ClassPath](/Users/hemming/Desktop/CIT 591/Group Project/screenShots/ClassPath.png)
+![ClassPath](ClassPath.png)
 
 1: Right Click project, Select properties
 
