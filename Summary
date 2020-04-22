@@ -1,0 +1,39 @@
+# MCIT 590 final project, TEAM 27
+
+* SANTOSH NAZARE
+
+* KEN HUANG
+
+* NICK MORISI
+
+# Summary:
+
+Our project finds clinically similar patients from a pool patient population and calculates the similarity between the index patient and all other n patients.  The program reads in the data from a CSV file and creates a list clinical encounters.  Then from a list of clinical encounters the software creates a patient profile HashMap.  The patient NBR , patients unique identifier, is the key and value is the patient profile.  We built a patient level clinical profile by averaging a patient's inpatient visits, outpatient visits, procedures, medications, lab procedures, and emergency visits.  The patient profiles are used to calculate patient "similarity."  Our measures of similarity are Euclidean distance and Cosine similarity.  The clinical profile is a vector of patient level measures. We will compare the ‘index’ patient’s clinical profile with all other patients’ clinical profiles to calculate similarity metric with a user defined threshold of 0 to 1.  The software then finds a cluster of patients within the threshold of similarity from the ‘index’ patient.
+
+Project Link: https://github.com/snazare-upenn/mcit_590_final_project.git
+
+# Division of Labor:
+
+**Each team-member was responsible for their own classes JUnit testing**
+
+Phase or Class - Team Member
+
+(1) Find Data for project - Santosh
+
+(2) Software Design(CRC, DRY) - Entire Team
+
+
+(3) Java Files
+    Clinical Encounter - Santosh
+    Clustering Frame - Ken
+    DataAnalysis - Santosh  
+    DataReader - Santosh, Nick
+    DisplayData  - Santosh 
+    MainFrame - Ken
+    mapValueComparator - Santosh
+    Patient - Nick
+    PatientProcessor - Nick
+    Plots - Ken
+    
+(4) Submission and Documentation - Nick 
+                   
