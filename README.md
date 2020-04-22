@@ -12,7 +12,7 @@ Our project finds clinically similar patients from a patient population and calc
 
 Euclidean distance is the distance between two points and is calculated using the Pythagorean Theorem 
 
-![Screen Shot 2020-04-22 at 10.59.32 AM](/Users/hemming/Desktop/ecul.png)
+![Screen Shot 2020-04-22 at 10.59.32 AM](ecul.png)
 
 (Rosalind 2020).  
 
