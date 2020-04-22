@@ -21,7 +21,7 @@ The Cosine similarity is a measure of similarity between entities regardless of 
 
 The user runs the MainFrame.java file and the window below is displayed.
 
-![ScreenOne](/Users/hemming/Desktop/CIT 591/Group Project/screenShots/ScreenOne.png)
+![ScreenOne](/mcit_590_final_project/ScreenOne.png)
 
 The "Import Data button" allows the user to select the "diabetic_data.csv" provided patient data.  The MainFrame then executes the DataReader class and the ClinicalEncounters class for data processing and importation.
 
