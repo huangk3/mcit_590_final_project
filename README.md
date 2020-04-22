@@ -14,7 +14,7 @@ Euclidean distance is the distance between two points and is calculated using th
 
 ![Screen Shot 2020-04-22 at 10.59.32 AM](ecul.png)
 
-(Rosalind 2020).  
+                                   (Rosalind 2020).  
 
 
 
