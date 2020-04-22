@@ -32,6 +32,8 @@ public class ClusteringFrame extends JFrame {
 	private HashMap<String,Double> raceDist;
 	private HashMap<String,Double> genderDist;
 	private ArrayList<String[]> Scatter;
+	private DataAnalysis patientClustering;
+	private ArrayList<String[]> forDisplay;
 	private String xVar;
 	private String yVar;
 	/**
@@ -96,12 +98,12 @@ public class ClusteringFrame extends JFrame {
 		contentPane.add(lblTitle);
 		
 		//Obtain the similarity (distance) between the index patient and all patients loaded 
-		DataAnalysis patientClustering = new DataAnalysis();
+		patientClustering = new DataAnalysis();
 		similarities = patientClustering.getDistanceAllPatients(indexPatientId, patientProfiles, distanceType);
 		
 		//Refine the patient by only including patients whose distance to the index patient is less than the threshold entered by user. 
         ArrayList<Integer> neighbours = patientClustering.getNeighbours(similarities, distanceThreshold);
-        ArrayList<String []> forDisplay = patientClustering.getPatientForDisplay(patientProfiles, similarities, neighbours);
+        forDisplay = patientClustering.getPatientForDisplay(patientProfiles, similarities, neighbours);
 
         //Fill in the table using the metrics of patients clustered with the index patient.  
         for(int i = 0; i < forDisplay.size(); i++)
@@ -156,7 +158,7 @@ public class ClusteringFrame extends JFrame {
         //Generate the bubble plot xVar vs yVar  among the clustered patients
         double bubbleSizeAdjustment; //adjust the bubble size according to the distance type used selected;
         if (distanceType.equals("euclidean")) {
-        	bubbleSizeAdjustment =  0.025;
+        	bubbleSizeAdjustment =  0.125;
         } else {
         	bubbleSizeAdjustment =  0.25;
         }

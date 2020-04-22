@@ -55,20 +55,21 @@ class Plots {
 	//create the dataset for bubble chart
 	static XYZDataset createBubbleChartDataset(ArrayList<String[]> Scatter, double bubbleSizeAdjustment) {
 
-        DefaultXYZDataset ds = new DefaultXYZDataset();
-        int size = Scatter.size();
-        double[] x = new double[size];
-        double[] y = new double[size];
-        double[] z = new double[size];
+		DefaultXYZDataset ds = new DefaultXYZDataset();
+		int size = Scatter.size();
+		double[] x = new double[size];
+		double[] y = new double[size];
+		double[] z = new double[size];
         
-        for (int i=0; i < Scatter.size(); i++) {
-        	x[i]= Double.parseDouble(Scatter.get(i)[0]);
-        	y[i]= Double.parseDouble(Scatter.get(i)[1]);
-        	z[i]= Math.log1p(bubbleSizeAdjustment/Double.parseDouble(Scatter.get(i)[2]));
+		for (int i=0; i < Scatter.size(); i++) {
+			String[] p = Scatter.get(i);
+			x[i]= Double.parseDouble(p[0]);
+			y[i]= Double.parseDouble(p[1]);
+			z[i]= Math.log1p(bubbleSizeAdjustment/Double.parseDouble(p[2]));
         }
-        double[][] data = { x, y, z};
-        ds.addSeries("Clustered Patients' Profile", data);
-        return ds;
+		double[][] data = { x, y, z};
+		ds.addSeries("Clustered Patients' Profile", data);
+		return ds;
     }
 	
 	//produce bubble chart	
