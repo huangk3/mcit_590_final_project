@@ -33,7 +33,7 @@ The user runs the MainFrame.java file and the window below is displayed.
 
 ![ScreenOne](ScreenOne.png)
 
-The "Import Data button" allows the user to select the "diabetic_data.csv" provided patient data.  The MainFrame then executes the DataReader class and the ClinicalEncounters class for data processing and importation.
+The "Import Data" button allows the user to select the "diabetic_data.csv" provided patient data.  The MainFrame then executes the DataReader class and the ClinicalEncounters class for data processing and importation.
 
 ![ScreenTwo](ScreenTwo.png)
 
