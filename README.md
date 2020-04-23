@@ -91,7 +91,7 @@ J Common and J Chart Installation
 
 (3)	Select Libraries
 
-(4)	Add Library from Eclipse Libraries, this was competed during Jchart and JCommon installation.
+(4)	Add Library from Eclipse Libraries, this was completed during Jchart and JCommon installation.
 
 
 
