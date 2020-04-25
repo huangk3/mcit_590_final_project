@@ -8,7 +8,11 @@
 
 # Summary:
 
-Our project finds clinically similar patients from a pool patient population and calculates the similarity between the index patient and all other n patients.  The program reads in the data from a CSV file and creates a list clinical encounters.  Then from a list of clinical encounters the software creates a patient profile HashMap.  The patient NBR , patients unique identifier, is the key and value is the patient profile.  We built a patient level clinical profile by averaging a patient's inpatient visits, outpatient visits, procedures, medications, lab procedures, and emergency visits.  The patient profiles are used to calculate patient "similarity."  Our measures of similarity are Euclidean distance and Cosine similarity.  The clinical profile is a vector of patient level measures. We will compare the ‘index’ patient’s clinical profile with all other patients’ clinical profiles to calculate similarity metric with a user defined threshold of 0 to 1.  The software then finds a cluster of patients within the threshold of similarity from the ‘index’ patient.
+Our project finds clinically similar patients from a given set of patient population. It calculates the similarity between the index patient and all other n patients.  
+
+The program reads in the data from a CSV file and creates a list of clinical encounters.  Using the list of clinical encounters, the software builds a clinical utilization for each patient profile (HashMap).  The unique patient identifier is the key and the patient's clincial profile is stored as value. The patient level clinical profile is created by averaging a patient's inpatient visits, outpatient visits, procedures, medications, lab procedures, and emergency visits.  These patient clinical utilization profiles are used to compute similarity between patients.  We used two methods to calculate the similiarity between patient's prfile, Euclidean distance and Cosine distance.  
+
+The clinical profile is a vector of patient level measures. We compare the index patient’s clinical profile with all other patients’ clinical profiles to calculate similarity metric and return list of patient's which are within user provided threshold of similarity from index patient. The distance measure value ranges from 0 (most similar) to 1 (least similar)
 
 Project Link: https://github.com/snazare-upenn/mcit_590_final_project.git
 

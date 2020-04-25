@@ -6,9 +6,17 @@
 
 * NICK MORISI
 
-# Summary:
+## Summary
 
-Our project finds clinically similar patients from a patient population and calculates the similarity between the index patient and all other n patients.  The program reads in data from a CSV file and creates a list of clinical encounters.  Then from a list of clinical encounters the software creates a patient profile HashMap.  The patient NBR , patients unique identifier, is the key and value is the patient profile.  We built a patient level clinical profile by averaging a patient's inpatient visits, outpatient visits, procedures, medications, lab procedures, and emergency visits.  The patient profiles are used to calculate patient "similarity."  Our measures of similarity are Euclidean distance and Cosine similarity.  The clinical profile is a vector of patient level measures. We will compare the ‘index’ patient’s clinical profile with all other patients’ clinical profiles to calculate similarity metric with a user defined threshold of 0 to 1, a threshold closer to zero increases similarity.  The software then finds a cluster of patients within the threshold of similarity from the ‘index’ patient.
+Our project finds clinically similar patients from a given set of patient population. It calculates the similarity between the *index* patient and all other `n` patients.  
+
+The program reads in the data from a CSV file and creates a list of clinical encounters.  Using the list of clinical encounters, the software builds a clinical utilization for each patient profile (`HashMap`).  The unique patient identifier (`patient_number`) is the key and the patient's clincial profile is stored as value. The patient level clinical profile is created by averaging a patient's inpatient visits, outpatient visits, procedures, medications, lab procedures, and emergency visits.  These patient clinical utilization profiles are used to compute *similarity* between patients.  We used two methods to calculate the similiarity between patient's prfile, *Euclidean distance* and *Cosine distance*.  
+
+The clinical profile is a vector of patient level measures. We compare the *index* patient’s clinical profile with all other patients’ clinical profiles to calculate similarity metric and return list of patient's which are within user provided threshold of similarity from *index* patient. The distance measure value ranges from 0 (*most similar*) to 1 (*least similar*)
+
+## Distance measures
+
+#### Euclidean distance
 
 Euclidean distance is the distance between two points and is calculated using the Pythagorean Theorem 
 
@@ -16,24 +24,40 @@ Euclidean distance is the distance between two points and is calculated using th
 
 (Rosalind 2020).  
 
+For the $$k$$-dimentional data this formula is generalizd to following form
+
+Given, $$p_1 = \left\{p_{1i},p_{1j},\ldots,p_{1k}\right\}$$ and $$p_2 = \left\{p_{2i},p_{2j},\ldots,p_{2k}\right\}$$ *educlidean distance* $$d(p_1,p_2)$$ is
+
+$$ d(p_1,p_2) = \sqrt{\sum_{i=i}^k(p_{1i}-p_{2i})^2}$$
+
+We used scaled version of *euclidean distance* for our software, to force the range of values between 0 and 1 for easy interpretability. 
+
+we calcualted a maximum possible squared discrepency for each variable. If $$m$$ are the number of patients in the given sample, we caculated maximum squared discrepancy for variable $$i$$ is given by
+
+$$md_{i} = (\max(p_{1i},p_{2i},p_{3i},\ldots,p_{mi}) - \min(p_{1i},p_{2i},p_{3i},\ldots,p_{mi}))^2$$
+
+then *scaled euclidean distance* is calculated as,
+
+$$d_{s}(p1,p2) = \sqrt{\sum_{i=1}^{k}(\frac{(p_{1i}-p_{1i})^2}{md_{i}})}$$
+
+#### Cosine distance
+
+The Cosine similarity is a measure of similarity is inner product space of two non-zero vectors, which measures cosine of angle between two vectors. 
+
+Given, $$p_1 = \left\{p_{1i},p_{1j},\ldots,p_{1k}\right\}$$ and $$p_2 = \left\{p_{2i},p_{2j},\ldots,p_{2k}\right\}$$ , the *cosine* similarity is calculated as,
+
+$$\cos(\theta) = \frac{\sum_{i=1}^k p_{1i}p_{2i}}{\sqrt{\sum_{i=1}^k} p_{1i}^2\sqrt{\sum_{i=1}^k p_{2i}^2}}$$
+
+*cosine distance* is calcualted as $$1-cos(\theta)$$
 
 
-**SANTOSH or KEN expansion**
-
-The Cosine similarity is a measure of similarity between entities regardless of distance or size (Machine Learning Plus 2020).  
-
-
-
-**SANTOSH or Ken quick expansion**
-
-
-# Project Flow:
+# Project Flow
 
 The user runs the MainFrame.java file and the window below is displayed.
 
 ![ScreenOne](ScreenOne.png)
 
-The "Import Data button" allows the user to select the "diabetic_data.csv" provided patient data.  The MainFrame then executes the DataReader class and the ClinicalEncounters class for data processing and importation.
+The "Import Data button" allows the user to select the "diabetic_data.csv" provided patient data.  The `MainFrame` then executes the `DataReader` class to read data into `ClinicalEncounters` class. Then methods in`PatientProcessor` class are executed to build `HashMap` of `Patient` class. Data from the `Patient` class is displayed in the window as below.
 
 ![ScreenTwo](ScreenTwo.png)
 
@@ -41,7 +65,7 @@ Once the data is imported the user can view and select an index patient for comp
 
 ![ScreenThree](ScreenThree.png)
 
-Once the user has selected the index patient, the user can either copy and paste or type in the patient ID into the Index Patient box. Additionally the user can choose Euclidean or Cosine distance calculations. Finally the user must enter a threshold value of 0 - 1 and then click submit. The MainFrame then executes PatientProcessor and Patient classes to develop profile HashMap. Finally the DataAnaylsis, ClusteringFrame, Plots, DataDisplay, mapValueCompatator, and Plots are called to calculate similarity values and display those values into three JCharts seen below.
+Once the user has selected the index patient, the user can either copy and paste or type in the patient ID into the Index Patient box. Additionally the user can choose Euclidean or Cosine distance calculations. Finally the user must enter a threshold value of 0 - 1 and then click submit. The MainFrame then executes PatientProcessor and Patient classes to develop profile HashMap. Finally the methods in `DataAnaylsis`, `ClusteringFrame`,` Plots`,` DataDisplay`,` mapValueCompatator` are called to calculate similarity values and display those values into three JCharts seen below.
 
 ![ScreenFour](ScreenFour.png)
 
