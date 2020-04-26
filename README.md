@@ -24,31 +24,31 @@ Euclidean distance is the distance between two points and is calculated using th
 
 (Rosalind 2020).  
 
-For the $$k$$-dimentional data this formula is generalizd to following form
+For the `k`-dimensional data this formula is generalized to following form
 
-Given, $$p_1 = \left\{p_{1i},p_{1j},\ldots,p_{1k}\right\}$$ and $$p_2 = \left\{p_{2i},p_{2j},\ldots,p_{2k}\right\}$$ *educlidean distance* $$d(p_1,p_2)$$ is
+Given, ![](etc/p1_profile.svg)and ![](etc/p2_profile.svg) are utilization profiles for two patients, the *educlidean distance* between them is calcualted as
 
-$$ d(p_1,p_2) = \sqrt{\sum_{i=i}^k(p_{1i}-p_{2i})^2}$$
+![](etc/euclidean_dist.svg)
 
-We used scaled version of *euclidean distance* for our software, to force the range of values between 0 and 1 for easy interpretability. 
+We used a scaled version of *euclidean distance* for our software, to force the range of values between 0 and 1 for easy interpretability. 
 
-we calcualted a maximum possible squared discrepency for each variable. If $$m$$ are the number of patients in the given sample, we caculated maximum squared discrepancy for variable $$i$$ is given by
+we calculated a maximum possible squared discrepancy for each variable. If `m` are the number of patients in the given sample, we caculated maximum squared discrepancy for variable $$i$$ is given by
 
-$$md_{i} = (\max(p_{1i},p_{2i},p_{3i},\ldots,p_{mi}) - \min(p_{1i},p_{2i},p_{3i},\ldots,p_{mi}))^2$$
+![](etc/md.svg)
 
 then *scaled euclidean distance* is calculated as,
 
-$$d_{s}(p1,p2) = \sqrt{\sum_{i=1}^{k}(\frac{(p_{1i}-p_{1i})^2}{md_{i}})}$$
+![](etc/scaled_euclidean.svg)
 
 #### Cosine distance
 
 The Cosine similarity is a measure of similarity is inner product space of two non-zero vectors, which measures cosine of angle between two vectors. 
 
-Given, $$p_1 = \left\{p_{1i},p_{1j},\ldots,p_{1k}\right\}$$ and $$p_2 = \left\{p_{2i},p_{2j},\ldots,p_{2k}\right\}$$ , the *cosine* similarity is calculated as,
+Given, ![](etc/p1_profile.svg) and ![](etc/p2_profile.svg) are utilization profiles for two patients, the *cosine* similarity betweej them is calculated as,
 
-$$\cos(\theta) = \frac{\sum_{i=1}^k p_{1i}p_{2i}}{\sqrt{\sum_{i=1}^k} p_{1i}^2\sqrt{\sum_{i=1}^k p_{2i}^2}}$$
+![](etc/cosine_similiarity.svg) 
 
-*cosine distance* is calcualted as $$1-cos(\theta)$$
+and *cosine distance* is calculated as ![](etc/cosine_dist.svg)
 
 
 # Project Flow
