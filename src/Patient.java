@@ -2,10 +2,7 @@
 public class Patient {
 
 	/**
-	 * This is the patient class which uses java's default constructor to create and store vsariable about each patient.
-	 *
-	 * variables from PDF and table 1
-	 *
+	 * This is the patient class which uses java's default constructor to create and store variables about each patient.
 	 */
 	Integer patientNbr;
 	String race;
