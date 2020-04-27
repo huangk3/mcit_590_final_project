@@ -2,7 +2,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class PatientProcessor {
-	//HashMap of patients Key is patient NBR
+	/**  This is the patientProfile class that loops thru the list of clinical encounters
+	* and creates a HashMap of patient profiles, the key of each HashMap entry is the patient NBR.  The methods assist with averaging multiple patient
+	* encounters as well as some data manipulation for data analysis.
+	*/
+	
 	HashMap<Integer, Patient> patientsMap = new HashMap<Integer, Patient>();
 
 	/**
