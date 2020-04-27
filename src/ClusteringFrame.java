@@ -37,7 +37,9 @@ public class ClusteringFrame extends JFrame {
 	private String xVar;
 	private String yVar;
 	/**
-	 * Create the frame.
+	 * This class defines the interface showing the clustered patient information including the
+	 * list of clustered patients and their distance to the index patient, the summary reports (
+	 * gender distribution, race distribution, and 2D scatter plot) on the clustered patients.
 	 */
 	public ClusteringFrame(HashMap<Integer, Patient> patientProfiles, int indexPatientId, double distanceThreshold, String distanceType) {
 		//set the header and size of the clustering Frame

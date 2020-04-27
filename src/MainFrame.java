@@ -39,10 +39,11 @@ public class MainFrame extends JFrame {
 	private JRadioButton rdbtnEuclidean;
 	private JRadioButton rdbtnCosine;
 	private ButtonGroup distance;
-	private String distanceType;
 
 	/**
-	 * Launch the application.
+	 * This class defines the main interface of the application, which includes the modules for  
+	 * data loading, data browsing, index patient choice, distance method choice as well as 
+	 * threshold for clustered patient filtering.
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {

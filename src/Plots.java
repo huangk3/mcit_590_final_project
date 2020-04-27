@@ -14,6 +14,12 @@ import org.jfree.data.xy.XYZDataset;
 import org.jfree.util.Rotation;
 
 class Plots {
+	
+	/**
+	 * This class receives the patient data and reformat the data and generate the plots. 
+	 * (customized for bar plot, pie plot, and bubble plot;) 
+	 */	
+	
 	//create the dataset for pie chart	
 	static PieDataset createPieDataset(HashMap<String,Double> raceDist) {
 		DefaultPieDataset ds = new DefaultPieDataset();
